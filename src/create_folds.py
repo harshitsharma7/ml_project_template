@@ -16,5 +16,3 @@ if __name__ == '__main__':
         df.loc[val_idx, 'kfold'] = fold
 
     df.to_csv('input/train_folds.csv', index=False)
-
-
