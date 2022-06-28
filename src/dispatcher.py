@@ -6,6 +6,5 @@ MODELS = {
     'randomforest': RandomForestClassifier(n_estimators=200, n_jobs=-1,
     verbose=2),
     'extratrees': ExtraTreesClassifier(n_estimators=200, n_jobs=-1,
-    verbose=2),
-    'logistic': LogisticRegression(penalty='l2',verbose=2)
+    verbose=2)
 }

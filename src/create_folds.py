@@ -11,7 +11,7 @@ if __name__ == '__main__':
     kf = StratifiedKFold(n_splits=5)
 
     for fold, (train_idx, val_idx) in enumerate(kf.split(X=df,
-        y=df.target.values)):
+         y=df.target.values)):
         print(fold,len(train_idx), len(val_idx))
         df.loc[val_idx, 'kfold'] = fold
 
