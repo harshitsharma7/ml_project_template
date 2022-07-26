@@ -3,6 +3,7 @@ import joblib
 import pandas as pd
 from sklearn import preprocessing
 from sklearn import metrics
+from sklearn.preprocessing import StandardScaler
 from src import dispatcher
 
 
@@ -50,7 +51,13 @@ if __name__ == "__main__":
         label_encoders[c] = lbl
 
     # data is now ready to train
-
+    joblib.dump(train_df.columns, f"models/{MODEL}_columns.pkl")
+    if MODEL == 'log_reg':
+        scaler = StandardScaler()
+        scaler.fit(train_df)
+        joblib.dump(scaler,f"models/{MODEL}_scaler.pkl")
+        train_df = scaler.transform(train_df)
+        valid_df = scaler.transform(valid_df)
     clf = dispatcher.MODELS[MODEL]
     clf.fit(train_df, ytrain)
     preds = clf.predict_proba(valid_df)[:,1]
@@ -58,4 +65,5 @@ if __name__ == "__main__":
 
     joblib.dump(label_encoders, f"models/{MODEL}_{FOLD}_label_encoder.pkl")
     joblib.dump(clf, f"models/{MODEL}_{FOLD}.pkl")
-    joblib.dump(train_df.columns, f"models/{MODEL}_columns.pkl")
+    
+    
